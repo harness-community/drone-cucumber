@@ -493,8 +493,8 @@ func validateThresholds(results Results, args Args) error {
 func writeTestStats(results Results, log *logrus.Logger) {
 	// Calculate failure rate and skipped rate
 	failureRate := 0.0
-	if results.StepCount > 0 {
-		failureRate = float64(results.FailedTests) / float64(results.StepCount) * 100
+	if results.TotalFailedFeatures > 0 {
+		failureRate = float64(results.TotalFailedFeatures) / float64(results.FeatureCount) * 100
 	}
 
 	skippedRate := 0.0
