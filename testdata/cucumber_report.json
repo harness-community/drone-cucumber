@@ -1,0 +1,209 @@
+[
+  {
+    "id": "browserstack-test",
+    "uri": "features/sample.feature",
+    "keyword": "Feature",
+    "name": "Browserstack test",
+    "description": "This feature tests basic functionality.",
+    "line": 1,
+    "elements": [
+      {
+        "id": "browserstack-test;can-add-the-product-in-cart",
+        "keyword": "Scenario",
+        "name": "Can add the product in cart",
+        "description": "",
+        "line": 3,
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "I visit bstackdemo website",
+            "line": 4,
+            "match": {
+              "location": "features/step_definitions/sample_steps.rb:4"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4600928000
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I click on orders",
+            "line": 5,
+            "match": {
+              "location": "features/step_definitions/sample_steps.rb:9"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "Orders page did not load.",
+              "duration": 518495000
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "I should see signin page",
+            "line": 6,
+            "match": {
+              "location": "features/step_definitions/sample_steps.rb:14"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "browserstack-test;search-wikipedia",
+        "keyword": "Scenario",
+        "name": "Search Wikipedia",
+        "description": "",
+        "line": 8,
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "I visit wikipedia",
+            "line": 9,
+            "match": {
+              "location": "features/step_definitions/sample_steps.rb:21"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 666769000
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I search for BrowserStack",
+            "line": 10,
+            "match": {
+              "location": "features/step_definitions/sample_steps.rb:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10150496000
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "I should see BrowserStack page",
+            "line": 11,
+            "match": {
+              "location": "features/step_definitions/sample_steps.rb:30"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "Expected page not found.",
+              "duration": 33933000
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "payment-feature",
+    "uri": "features/payment.feature",
+    "keyword": "Feature",
+    "name": "Payment Gateway",
+    "description": "This feature tests payment functionality.",
+    "line": 1,
+    "elements": [
+      {
+        "id": "payment-feature;process-payment",
+        "keyword": "Scenario",
+        "name": "Process payment",
+        "description": "",
+        "line": 3,
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "I am on the payment page",
+            "line": 4,
+            "match": {
+              "location": "features/step_definitions/payment_steps.rb:4"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1234567000
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I enter valid payment details",
+            "line": 5,
+            "match": {
+              "location": "features/step_definitions/payment_steps.rb:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2345678000
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the payment should be successful",
+            "line": 6,
+            "match": {
+              "location": "features/step_definitions/payment_steps.rb:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3456789000
+            }
+          }
+        ]
+      },
+      {
+        "id": "payment-feature;failed-payment",
+        "keyword": "Scenario",
+        "name": "Failed payment",
+        "description": "",
+        "line": 8,
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Given ",
+            "name": "I am on the payment page",
+            "line": 9,
+            "match": {
+              "location": "features/step_definitions/payment_steps.rb:4"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1234567000
+            }
+          },
+          {
+            "keyword": "When ",
+            "name": "I enter invalid payment details",
+            "line": 10,
+            "match": {
+              "location": "features/step_definitions/payment_steps.rb:18"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "Payment details are invalid.",
+              "duration": 2345678000
+            }
+          },
+          {
+            "keyword": "Then ",
+            "name": "the payment should be declined",
+            "line": 11,
+            "match": {
+              "location": "features/step_definitions/payment_steps.rb:23"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
