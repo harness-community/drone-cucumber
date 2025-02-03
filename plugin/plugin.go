@@ -10,6 +10,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/sirupsen/logrus"
 )
@@ -90,8 +91,17 @@ func Exec(ctx context.Context, args Args) error {
 		errorsChan  = make(chan error, len(files))
 	)
 
+	var wg sync.WaitGroup
+	maxWorkers := 5 // Adjust this based on system capacity
+	sem := make(chan struct{}, maxWorkers)
+
 	for _, file := range files {
+		wg.Add(1)
+		sem <- struct{}{}
 		go func(f string) {
+
+			defer wg.Done()
+			defer func() { <-sem }()
 			res, err := processFile(f, args.SkipEmptyJSONFiles, args)
 			if err != nil {
 				errorsChan <- fmt.Errorf("failed to process file %s: %w", f, err)
@@ -100,13 +110,16 @@ func Exec(ctx context.Context, args Args) error {
 			resultsChan <- res
 		}(file)
 	}
+	wg.Wait()
 
 	var aggregatedResults Results
 	var skippedFiles []string
 
+	var mu sync.Mutex
 	for i := 0; i < len(files); i++ {
 		select {
 		case res := <-resultsChan:
+			mu.Lock()
 			aggregatedResults.FeatureCount += res.FeatureCount
 			aggregatedResults.ScenarioCount += res.ScenarioCount
 			aggregatedResults.StepCount += res.StepCount
@@ -123,6 +136,7 @@ func Exec(ctx context.Context, args Args) error {
 			aggregatedResults.TotalPassedScenarios += res.TotalPassedScenarios
 			aggregatedResults.TotalFailedSteps += res.TotalFailedSteps
 			aggregatedResults.TotalPassedSteps += res.TotalPassedSteps
+			mu.Unlock()
 		case err := <-errorsChan:
 			logrus.Warn(err)
 			if e, ok := err.(*os.PathError); ok {
