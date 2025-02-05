@@ -550,8 +550,7 @@ func WriteEnvToFile(key, value string, log *logrus.Logger) error {
 		return err
 	}
 	defer outputFile.Close()
-
-	logrus.Infof("Writing Test Stats %s : %s to DRONE_OUTPUT\n", key, value)
+	
 	_, err = outputFile.WriteString(key + "=" + value + "\n")
 	if err != nil {
 		log.Errorf("Failed to write to env: %v", err)
